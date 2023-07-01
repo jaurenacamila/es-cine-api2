@@ -60,6 +60,11 @@ Usuario.init({
     allowNull: false
   },
 
+  idRol: {
+    type: DT.INTEGER(),
+    defaultValue: 2,
+  },
+
   salt: {
     type: DT.STRING(),
   },
@@ -71,8 +76,13 @@ Usuario.init({
 
 })
 
-Usuario.beforeCreate(async (user) => {
+Usuario.beforeUpdate(async (user) => {
 
+  const nuevaContraseñaHash = await bcrypt.hash(user.contraseña, user.salt);
+  user.contraseña = nuevaContraseñaHash;
+});
+
+Usuario.beforeCreate(async (user) => {
   const salt = await bcrypt.genSalt();
   user.salt = salt;
 
@@ -80,5 +90,7 @@ Usuario.beforeCreate(async (user) => {
   user.contraseña = contraseñaHash;
 
 });
+
+
 
 export default Usuario

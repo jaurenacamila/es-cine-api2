@@ -7,17 +7,17 @@ import seedFuncion from './seed/seedFuncion.js'
 import seedSala from './seed/seedSala.js'
 import seedPelicula from './seed/seedPelicula.js'
 import seedAsiento from './seed/seedAsiento.js'
+import seedRol from './seed/seedRol.js'
+import cookieParser from 'cookie-parser'
 
 import cors from 'cors'
 
 const app = express();
 
-
-
 //middleweres
-
+app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 app.use(cors())
 
@@ -35,7 +35,7 @@ app.use((error, req, res, next) => {
 
 
 
-connection.sync({ force: true })
+connection.sync({ force: false })
     .then(() => {
         app.listen(serverPort, () => {
             //console.clear()
@@ -45,4 +45,5 @@ connection.sync({ force: true })
     .then(seedSala)
     .then(seedAsiento)
     .then(seedPelicula)
-    .then(seedFuncion);
+    .then(seedFuncion)
+    .then(seedRol);

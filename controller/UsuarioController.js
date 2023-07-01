@@ -1,4 +1,5 @@
-import { Usuario } from "../models/index.js";
+import { Usuario, Rol } from "../models/index.js";
+import { generateToken} from "../utils/tokens.js";
 
 class UsuarioController {
 
@@ -7,7 +8,13 @@ class UsuarioController {
     traerTodosLosUsuarios = async (req, res, next) => {
         try {
             const result = await Usuario.findAll({
-                attributes: ["idUsuario", "nombre", "apellido", "email", "contraseña"]
+                attributes: ["idUsuario", "nombre", "apellido", "email", "contraseña"],
+                include: [
+                    {
+                        model: Rol,
+                        attributes: ["rol"],
+                    },
+                ],
             });
 
             if (result.length == 0) {
@@ -32,6 +39,12 @@ class UsuarioController {
 
             const result = await Usuario.findOne({
                 attributes: ["idUsuario", "nombre", "apellido", "email", "contraseña"],
+                include: [
+                    {
+                        model: Rol,
+                        attributes: ["rol"],
+                    },
+                ],
                 where: {
                     idUsuario
                 },
@@ -59,14 +72,19 @@ class UsuarioController {
 
             const { nombre, apellido, email, contraseña } = req.body
 
-            
+
             if (contraseña.length < 4) {
                 const error = new Error("La contraseña debe tener mas de 4 caracteres")
                 error.status = 400;
                 throw error;
             }
 
-            const result = await Usuario.create({ nombre, apellido, email, contraseña })
+            const result = await Usuario.create({
+                nombre,
+                apellido,
+                email,
+                contraseña,
+            })
 
             if (!result) {
                 const error = new Error("Error al crear el Usuario")
@@ -106,11 +124,20 @@ class UsuarioController {
                 const error = new Error("La Contraseña es incorrecta")
                 error.status = 400;
                 throw error;
-            }
+            };
+            const payload = {
+                id: result.id,
+                email: result.email,
+                rolId: result.rolId,
+              };
+              const token = generateToken(payload);
+              console.log('TOKENNN',token)
+              res.cookie("cookiecine", token);
 
             res
                 .status(200)
                 .send({ success: true, message: "Usuario Logeado Exitosamente", result })
+                console.log(res)
         } catch (error) {
 
             next(error)
@@ -158,7 +185,7 @@ class UsuarioController {
 
             res
                 .status(200)
-                .send({ success: true, message: "El usuario a sido eliminado", result2 });
+                .send({ success: true, message: "El usuario ha sido eliminado", result2 });
 
 
         } catch (error) {
@@ -166,7 +193,6 @@ class UsuarioController {
             next(error);
         }
     };
-
 
     //metodo viejo, fue remplazado por DELETE
     borrarUsuario = async (req, res, next) => {
@@ -197,6 +223,55 @@ class UsuarioController {
 
     };
 
+    modificarUsuario = async (req, res, next) => {
+
+        try {
+
+            const { nombre, apellido, email, contraseña } = req.body;
+
+            const { idUsuario } = req.params;
+
+            await Usuario.update(
+                {
+                    nombre,
+                    apellido,
+                    email,
+                    contraseña,
+                },
+                {
+                    where: {
+                        idUsuario
+                    },
+                    individualHooks: true,
+                }
+            );
+
+            // falta una forma de saber si fallo o no
+
+
+            res.status(200).json({ message: "Usuario actualizados correctamente" });
+        } catch (error) {
+
+            next(error);
+            console.log(error)
+            console.log('No se puede modificar el usuario')
+        }
+    }
+
+    me = async (req, res, next) => {
+        const {usuario}=req
+        console.log(req)
+        res
+        .status(200)
+        .send({ success: true, message: "Usuario logueado", usuario });
+    };
+
+    logout = async (req, res, next) => {  
+        res.cookie("cookiecine", "")
+        res
+        .status(200)
+        .send({ success: true, message: "Usuario deslogueado"});
+    };
 
 }
 

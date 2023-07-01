@@ -9,6 +9,6 @@ salaRoutes.get("/",salaController.traerTodasLasSalas);
 
 salaRoutes.get("/:sala",salaController.traerSala);
 
-salaRoutes.put("/:sala", salaController.actualizarAsientos);
+salaRoutes.post("/", salaController.crearSala);
 
 export default salaRoutes;

@@ -42,4 +42,3 @@ Funcion.init({
 
 
 export default Funcion;
-

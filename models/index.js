@@ -3,7 +3,19 @@ import Reserva from "./Reserva.js";
 import Funcion from "./Funcion.js";
 import Sala from "./Sala.js";
 import Pelicula from "./Pelicula.js";
-import Asiento from "./Asiento.js"
+import Asiento from "./Asiento.js";
+import Rol from "./Rol.js"
+
+
+
+// Relacion Rol(1) y Usuario(M)
+
+Rol.hasMany(Usuario, {
+    foreignKey: "idRol",
+});
+Usuario.belongsTo(Rol, {
+    foreignKey: "idRol",
+});
 
 
 // Relacion Usuario(1) y Reservas(M)
@@ -86,10 +98,4 @@ Asiento.belongsTo(Sala, {
 
 
 
-
-
-
-
-
-
-export { Usuario, Reserva, Funcion, Sala, Pelicula, Asiento }
+export { Usuario, Reserva, Funcion, Sala, Pelicula, Asiento, Rol }
