@@ -29,6 +29,7 @@ const Reserva = connection.define("Reserva", {
         allowNull: false,
         foreignKey: true,
     }, */
+    
     asientos: {
         type: DT.STRING,
         allowNull: false,

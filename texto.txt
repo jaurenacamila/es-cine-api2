@@ -90,3 +90,6 @@ crearReserva = async (req, res, next) => {
             next(error)
         }
     };
+
+    ////////////////////////////////////////////////////////////////////////////
+    <h6 class="tituloID">Película: {{ this.traerNombrePelicula(reserva.Funcion.idPelicula) }}</h6>          

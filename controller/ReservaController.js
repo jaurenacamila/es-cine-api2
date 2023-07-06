@@ -7,14 +7,10 @@ class ReservaController {
     trearReservaDeUsuario = async (req, res, next) => {
         try {
             const { idUsuario } = req.params;
-
+            console.log('el ID DE USUARIO LLEGA ok', idUsuario)
             const result = await Reserva.findAll({
-                attributes: ["idReserva", "idUsuario"],
+                attributes: ["idReserva", "idUsuario", "asientos"],
                 include: [
-                    {
-                        model: Asiento,
-                        attributes: ['numeroAsiento'],
-                    },
                     {
                         model: Funcion,
                         attributes: ['Horario', 'sala', 'idPelicula'],
