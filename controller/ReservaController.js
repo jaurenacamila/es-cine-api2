@@ -44,54 +44,32 @@ class ReservaController {
 
     crearReserva = async (req, res, next) => {
         try {
-            const { idUsuario } = req.params;
-            const { IdFuncion, idAsiento } = req.body
-
-            
-            // no se si esto esta bien, preguntar
-
-            const auxAsiento = await Asiento.findOne({
-                where:{
-                    idAsiento
-                }
-            })
-            const auxFuncion = await Funcion.findOne({
-                where:{
-                    IdFuncion
-                }
-            })
-
-            if( auxAsiento.sala != auxFuncion.sala ) {
-                const error = new Error("Error, El asiento Seleccionado no es de la misma sala que la funcion")
-                error.status = 401;
-                throw error;
-            }
-
-
-            //
-
-
-            const result = await Reserva.create({
-                idFuncion: parseInt(IdFuncion),
-                idAsiento: parseInt(idAsiento),
-                idUsuario: parseInt(idUsuario),
-            })
-
-            if (!result) {
-                const error = new Error("Error al crear Reserva")
-                error.status = 400;
-                throw error;
-            }
-
-            res
-                .status(200)
-                .send({ success: true, message: "Reserva Creada Exitosamente", result })
-
+          const { asientos, usuario, funcion } = req.body;
+          console.log(req.body)
+          console.log('data funcion', funcion)
+          console.log('data asientos', asientos)
+          console.log('data usuario', usuario)
+          const reserva = await Reserva.create({
+            idFuncion: parseInt(funcion),
+            idUsuario: parseInt(usuario),
+            asientos: asientos.toString()
+          });
+      
+          if (!reserva) {
+            const error = new Error("Error al crear Reserva");
+            error.status = 400;
+            throw error;
+          }
+      
+          // Asignar los asientos a la reserva en la tabla intermedia ReservaAsiento
+          await reserva.addAsientos(asientos);
+      
+          res.status(200).send({ success: true, message: "Reserva Creada Exitosamente", reserva });
         } catch (error) {
-
-            next(error)
+          next(error);
         }
-    };
+      };
+
 
 
 }

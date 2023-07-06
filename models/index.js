@@ -46,7 +46,7 @@ Reserva.belongsTo(Funcion, {
 
 // Relacion Asiento(1) y Reservas(M)
 
-Asiento.hasMany(Reserva, {
+/* Asiento.hasMany(Reserva, {
     foreignKey: 'idAsiento',
     // onUpdate: "RESTRICT",
     // onDelete: "RESTRICT",
@@ -55,7 +55,7 @@ Reserva.belongsTo(Asiento, {
     foreignKey: 'idAsiento',
     // onUpdate: "RESTRICT",
     // onDelete: "RESTRICT",
-});
+}); */
 
 // Relacion Pelicula(1) y Funcion(M)
 

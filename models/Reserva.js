@@ -24,12 +24,15 @@ const Reserva = connection.define("Reserva", {
         foreignKey: true,
     },
 
-    idAsiento: {
+    /* idAsiento: {
         type: DT.INTEGER,
         allowNull: false,
         foreignKey: true,
+    }, */
+    asientos: {
+        type: DT.STRING,
+        allowNull: false,
     },
-
 
 }, {
     timestamps: false

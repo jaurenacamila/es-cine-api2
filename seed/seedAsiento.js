@@ -21,6 +21,16 @@ const seedAsiento = async () => {
                 estado: false,
             },
             {
+                numeroAsiento: 4,
+                sala: 'A',
+                estado: false,
+            },
+            {
+                numeroAsiento: 5,
+                sala: 'A',
+                estado: false,
+            },
+            {
                 numeroAsiento: 1,
                 sala: 'B',
                 estado: false,
@@ -36,6 +46,16 @@ const seedAsiento = async () => {
                 estado: false,
             },
             {
+                numeroAsiento: 4,
+                sala: 'B',
+                estado: false,
+            },
+            {
+                numeroAsiento: 5,
+                sala: 'B',
+                estado: false,
+            },
+            {
                 numeroAsiento: 1,
                 sala: 'C',
                 estado: false,
@@ -47,6 +67,16 @@ const seedAsiento = async () => {
             },
             {
                 numeroAsiento: 3,
+                sala: 'C',
+                estado: false,
+            },
+            {
+                numeroAsiento: 4,
+                sala: 'C',
+                estado: false,
+            },
+            {
+                numeroAsiento: 5,
                 sala: 'C',
                 estado: false,
             },
