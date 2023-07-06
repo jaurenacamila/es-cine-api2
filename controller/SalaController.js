@@ -35,10 +35,10 @@ class SalaController {
       const { sala } = req.params;
 
       const result = await Sala.findOne({
-        attributes: ["sala", "capacidad"],
+        attributes: ["sala"],
         include: {
           model: Asiento,
-          attributes: ['numeroAsiento', 'idAsiento'],
+          attributes: ['numeroAsiento', 'idAsiento', 'estado'],
         },
         where: {
           sala
@@ -98,6 +98,30 @@ class SalaController {
 
     }
   }
+
+  //cambia el estado de los asientos de la sala
+    cambiarDisponibilidadAsientos = async (req, res, next) => {
+        try {
+            const { asientos, sala } = req.body;
+            console.log('asinetooo',asientos) //array
+            console.log('salaaaa',sala) //char
+            // Actualizar la disponibilidad de los asientos en la sala
+
+             asientos.forEach(async (asiento) => {
+                await Asiento.update({ estado: true }, {
+                    where: {
+                    numeroAsiento: asiento,
+                    sala: sala
+                    }
+                });
+                });
+        
+            res.status(200).json({ message: 'Disponibilidad de asientos actualizada correctamente' });
+          } catch (error) {
+            next(error);
+            console.log('error al actualizar asientos')
+          }
+    }
 
 };
 

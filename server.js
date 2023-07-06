@@ -11,6 +11,7 @@ import seedRol from './seed/seedRol.js'
 import cookieParser from 'cookie-parser'
 
 import cors from 'cors'
+import seedUsuario from './seed/seedUsuario.js'
 
 const app = express();
 

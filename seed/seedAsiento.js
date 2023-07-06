@@ -8,38 +8,47 @@ const seedAsiento = async () => {
             {
                 numeroAsiento: 1,
                 sala: 'A',
+                estado: false,
             },
             {
                 numeroAsiento: 2,
                 sala: 'A',
+                estado: false,
             },
             {
                 numeroAsiento: 3,
                 sala: 'A',
+                estado: false,
             },
             {
                 numeroAsiento: 1,
                 sala: 'B',
+                estado: false,
             },
             {
                 numeroAsiento: 2,
                 sala: 'B',
+                estado: false,
             },
             {
                 numeroAsiento: 3,
                 sala: 'B',
+                estado: false,
             },
             {
                 numeroAsiento: 1,
                 sala: 'C',
+                estado: false,
             },
             {
                 numeroAsiento: 2,
                 sala: 'C',
+                estado: false,
             },
             {
                 numeroAsiento: 3,
                 sala: 'C',
+                estado: false,
             },
         ]);
 

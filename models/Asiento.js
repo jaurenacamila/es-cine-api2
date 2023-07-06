@@ -3,7 +3,6 @@ import connection from "../connection/connection.js";
 
 const Asiento = connection.define("Asiento",{
 
-
     idAsiento:{
         type: DT.INTEGER,
         primaryKey:true,
@@ -19,6 +18,11 @@ const Asiento = connection.define("Asiento",{
         type: DT.CHAR(1),
         allowNull: false,
     },
+
+    estado: {
+        type: DT.BOOLEAN,
+        allowNull : false
+    }
 
 
 }, {

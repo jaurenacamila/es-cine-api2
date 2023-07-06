@@ -70,7 +70,7 @@ class UsuarioController {
     crearUsuario = async (req, res, next) => {
         try {
 
-            const { nombre, apellido, email, contraseña } = req.body
+            const { nombre, apellido, email, contraseña, idRol } = req.body
 
 
             if (contraseña.length < 4) {
@@ -84,6 +84,7 @@ class UsuarioController {
                 apellido,
                 email,
                 contraseña,
+                idRol
             })
 
             if (!result) {
