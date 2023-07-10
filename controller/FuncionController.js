@@ -107,7 +107,7 @@ class FuncionController {
         try {
 
             const { sala, horario, idPelicula } = req.body;
-
+            console.log("DATOSD DE LA FUNCION ENTRANTES:", req.body)
             const result = await Funcion.create({
                 sala,
                 horario,
@@ -118,6 +118,8 @@ class FuncionController {
                 const error = new Error("Error al crear la Funcion");
                 error.status = 400;
                 throw error;
+            } else {
+                console.log("se creo la funicon")
             }
 
             res
