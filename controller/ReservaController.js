@@ -66,6 +66,32 @@ class ReservaController {
         }
       };
 
+      getReservas = async (req, res, next) => {
+        try {
+            const result = await Reserva.findAll({
+                attributes: ["idReserva", "idFuncion", "idUsuario", "asientos"],
+                /* include: [
+                    {
+                        model: Rol,
+                        attributes: ["rol"],
+                    },
+                ], */
+            });
+
+            if (result.length == 0) {
+                const error = new Error("no hay reservas cargados aun");
+                error.status = 400
+                throw error
+            }
+
+            res
+                .status(200)
+                .send({ success: true, message: "reservas encontrados:", result })
+
+        } catch (error) {
+            next(error)
+        }
+    };
 
 
 }
