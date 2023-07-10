@@ -24,6 +24,35 @@ class PeliculaController {
             next(error)
         }
     };
+
+    agregarPelicula = async (req, res, next) => {
+        try {
+            const { id } = req.body;
+            console.log('recibi la peliiii el ID ES: ', id)
+            // Verificar si la película ya existe en la base de datos
+            const peliculaExistente = await Pelicula.findOne({
+                where: {
+                    idPelicula: id
+                }
+            });
+
+            if (peliculaExistente) {
+                const error = new Error("La película ya existe en la base de datos");
+                error.status = 400;
+                throw error;
+            }
+
+            // Crear la película en la base de datos
+            const nuevaPelicula = await Pelicula.create({
+                idPelicula: id
+                // Agrega aquí los demás campos de la película que desees almacenar
+            });
+
+            res.status(200).send({ success: true, message: "Película agregada correctamente" });
+        } catch (error) {
+            next(error);
+        }
+    };
 };
 
 export default PeliculaController;

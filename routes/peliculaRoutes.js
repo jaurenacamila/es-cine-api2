@@ -8,5 +8,6 @@ const peliculaRoutes = Router();
 
 peliculaRoutes.get("/",peliculaController.traerTodasLasPeliculas);
 
+peliculaRoutes.put("/",peliculaController.agregarPelicula);
 
 export default peliculaRoutes;
