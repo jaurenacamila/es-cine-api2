@@ -14,7 +14,7 @@ usuarioRoutes.get("/me", validateAccess, usuarioController.me)
 
 usuarioRoutes.get("/:idUsuario", usuarioController.traerUsuarioPorId)
 
-usuarioRoutes.get("/", validateAccess, usuarioController.traerTodosLosUsuarios)
+usuarioRoutes.get("/", usuarioController.traerTodosLosUsuarios)
 
 usuarioRoutes.post("/login", usuarioController.login)
 
